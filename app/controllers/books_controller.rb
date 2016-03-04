@@ -40,7 +40,8 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(params[:book])
+    # @book = Book.new(params[:book])
+    @book = Book.new(books_params)
 
     respond_to do |format|
       if @book.save
@@ -79,5 +80,10 @@ class BooksController < ApplicationController
       format.html { redirect_to books_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def books_params
+    params.require(:book).permit(:author, :title)
   end
 end
